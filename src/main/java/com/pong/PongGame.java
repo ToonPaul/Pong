@@ -1,3 +1,7 @@
+//Name: Paul Hudalla
+//Date: 11/21/25
+//This program will recreate the classic game of Pong
+
 package com.pong;
 
 import javax.swing.*;
@@ -10,6 +14,7 @@ public class PongGame extends JPanel implements MouseMotionListener {
     static int height = 480; // this is the amount of pixels to the top of the screen.
     private int userMouseY;
     private Paddle aiPaddle;
+    private Paddle playerPaddle;
     private int playerScore;
     private int aiScore;
     private Ball ball;
@@ -65,11 +70,14 @@ public class PongGame extends JPanel implements MouseMotionListener {
     // postcondition: one frame of the game is "played"
     public void gameLogic() {
         //add commands here to make the game play propperly
-        
+        playerPaddle.moveY(userMouseY);
         aiPaddle.moveY(ball.getY());
 
         if (aiPaddle.isTouching(ball)) {
            ball.reverseX();
+        }
+        if(playerPaddle.isTouching(ball)){
+            ball.reverseX();
         }
  
         pointScored();
@@ -83,7 +91,13 @@ public class PongGame extends JPanel implements MouseMotionListener {
     // pixels) and the ai scores
     // if the ball goes off the left edge (0)
     public void pointScored() {
-
+        if(ball.getX() > 640){
+            playerScore++;
+        } else if(ball.getX() < 0){
+            aiScore++;
+        }
+        ball.setX(200);
+        ball.setY(200);
     }
 
     // you do not need to edit the below methods, but please do not remove them as
