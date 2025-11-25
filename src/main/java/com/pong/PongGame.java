@@ -23,6 +23,7 @@ public class PongGame extends JPanel implements MouseMotionListener {
     public PongGame() {
 
         aiPaddle = new Paddle(610, 240, 50, 9, Color.WHITE);
+        playerPaddle = new Paddle (20,100,50,9,Color.WHITE);
         JLabel pScore = new JLabel("0");
         JLabel aiScore = new JLabel("0");
         pScore.setBounds(280, 440, 20, 20);
@@ -60,7 +61,7 @@ public class PongGame extends JPanel implements MouseMotionListener {
         g.drawString("The Score is User:" + playerScore + " vs Ai:" + aiScore, 240, 20);
         ball.draw(g);
         aiPaddle.draw(g);
-        
+        playerPaddle.draw(g);
         //call the "draw" function of any visual component you'd like to show up on the screen.
 
     }
@@ -97,7 +98,7 @@ public class PongGame extends JPanel implements MouseMotionListener {
             aiScore++;
         }
         ball.setX(200);
-        ball.setY(200);
+        //ball.setY(200);
     }
 
     // you do not need to edit the below methods, but please do not remove them as
