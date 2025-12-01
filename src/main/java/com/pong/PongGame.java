@@ -83,6 +83,9 @@ public class PongGame extends JPanel implements MouseMotionListener {
         //add commands here to make the game play propperly
         playerPaddle.moveY(userMouseY);
         aiPaddle.moveY(ball.getY());
+        ball.setChangeX(1);
+        ball.setChangeY(1);
+        ball.moveBall();
 
         if (aiPaddle.isTouching(ball)) {
            ball.reverseX();
