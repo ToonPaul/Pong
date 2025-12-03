@@ -86,28 +86,25 @@ public class PongGame extends JPanel implements MouseMotionListener {
         ball.setChangeX(1.0);
         ball.setChangeY(1.0);
         ball.moveBall();
-        ball.bounceOffwalls(0, 600);
-
-        if (aiPaddle.isTouching(ball)) {
-           ball.reverseX();
-        }
+        //make ball bounce off the top and bottom
+        ball.bounceOffwalls(0, 480);
         if(playerPaddle.isTouching(ball)){
             ball.reverseX();
+            ball.reverseY();
         }
-        if(wall.isTouching(ball)){
+        if(aiPaddle.isTouching(ball)){
             ball.reverseX();
+            ball.reverseY();
         }
         if(speedup.isTouching(ball)){
-            ball.setChangeX(ball.getChangeX()*2);
-            ball.setChangeY(ball.getChangeX()*2);
+            ball.setChangeX(ball.getX()*2.0);
+            ball.setChangeY(ball.getX()*2.0);
         }
         if(slow.isTouching(ball)){
-            ball.setChangeX(ball.getChangeX()*0.5);
-            ball.setChangeY(ball.getChangeX()*0.5);
+            ball.setChangeX(ball.getX()*0.5);
+            ball.setChangeY(ball.getX()*0.5);
         }
- 
         pointScored();
-
     }
 
     // precondition: ball is a non-null object that exists in the world
@@ -119,11 +116,14 @@ public class PongGame extends JPanel implements MouseMotionListener {
     public void pointScored() {
         if(ball.getX() > 640){
             playerScore++;
+            ball.setX(240);
+            ball.setY(320);
         } else if(ball.getX() < 0){
             aiScore++;
+            ball.setX(240);
+            ball.setY(320);
         }
-        ball.setX(200);
-        ball.setY(200);
+        
     }
 
     // you do not need to edit the below methods, but please do not remove them as
