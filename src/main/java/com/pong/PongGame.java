@@ -39,8 +39,8 @@ public class PongGame extends JPanel implements MouseMotionListener {
 
         //create any other objects necessary to play the game.
         wall = new Wall(200,20,60,20,Color.magenta);
-        speedup = new Speedup(320, 200, 50, 50);
-        slow = new SlowDown(300,330,100,100);
+        speedup = new Speedup(300, 330, 50, 50);
+        slow = new SlowDown(320,200,100,100);
     }
 
     // precondition: None
@@ -83,26 +83,40 @@ public class PongGame extends JPanel implements MouseMotionListener {
         //add commands here to make the game play propperly
         playerPaddle.moveY(userMouseY);
         aiPaddle.moveY(ball.getY());
-        ball.setChangeX(1.0);
-        ball.setChangeY(1.0);
         ball.moveBall();
-        //make ball bounce off the top and bottom
+        // //make ball bounce off the top and bottom
         ball.bounceOffwalls(0, 480);
         if(playerPaddle.isTouching(ball)){
-            ball.reverseX();
-            ball.reverseY();
+            ball.setChangeX((double)(ball.getChangeX()*-1));
+            ball.setChangeY((double)(ball.getChangeX()*-1));
         }
         if(aiPaddle.isTouching(ball)){
-            ball.reverseX();
-            ball.reverseY();
+            ball.setChangeX((double)(ball.getChangeX()*-1));
+            ball.setChangeY((double)(ball.getChangeX()*-1));
         }
         if(speedup.isTouching(ball)){
-            ball.setChangeX(ball.getX()*2.0);
-            ball.setChangeY(ball.getX()*2.0);
+            ball.setChangeX((double)(ball.getChangeX()*1.1));
+            ball.setChangeY((double)(ball.getChangeX()*1.1));
+            if(ball.getChangeX() > 10){
+                ball.setChangeX(10);
+            }
+            if(ball.getChangeY() >6){
+                ball.setChangeY(6);
+            }
         }
         if(slow.isTouching(ball)){
-            ball.setChangeX(ball.getX()*0.5);
-            ball.setChangeY(ball.getX()*0.5);
+            ball.setChangeX((double)(ball.getChangeX()*0.9));
+            ball.setChangeY((double)(ball.getChangeX()*0.9));
+            if(ball.getChangeX() < 0){
+                ball.setChangeX(-1);
+            } else if(ball.getChangeX() < 1){
+                ball.setChangeX(1);
+            }
+            if(ball.getChangeY() < 0){
+                ball.setChangeY(-1);
+            } else if(ball.getChangeY() < 1){
+                ball.setChangeY(1);
+            }
         }
         pointScored();
     }
@@ -116,12 +130,12 @@ public class PongGame extends JPanel implements MouseMotionListener {
     public void pointScored() {
         if(ball.getX() > 640){
             playerScore++;
-            ball.setX(240);
-            ball.setY(320);
+            ball.setX(320);
+            ball.setY(240);
         } else if(ball.getX() < 0){
             aiScore++;
-            ball.setX(240);
-            ball.setY(320);
+            ball.setX(320);
+            ball.setY(240);
         }
         
     }
