@@ -84,7 +84,6 @@ public class PongGame extends JPanel implements MouseMotionListener {
         playerPaddle.moveY(userMouseY);
         aiPaddle.moveY(ball.getY());
         ball.moveBall();
-        // //make ball bounce off the top and bottom
         ball.bounceOffwalls(0, 480);
         if(playerPaddle.isTouching(ball)){
             ball.setChangeX((double)(ball.getChangeX()*-1));
